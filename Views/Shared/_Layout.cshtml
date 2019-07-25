@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        @RenderSection("Script", false)
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@RenderSection("Title", true)</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        @RenderSection("StyleSheet", false)
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+       
+    </environment>
+</head>
+<body style="background-color:antiquewhite;">
+    <header style="background-color:rgb(208, 169, 94); border: solid 1px rgb(59, 41, 34);">
+        <div class="container-fluid">
+            <div class="col-lg-12">
+                @*<img class="img-responsive" style="height: 12rem; " src="~/images/logo.png" />*@
+                <h1 style="font-weight:900; color:antiquewhite">National Park Geek</h1>
+            </div>
+        </div>
+    </header>
+    <nav  style="position: sticky;overflow: hidden;top: 0;width: 100%; z-index: 1000; background-color:rgb(59, 41, 34);">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Parks" asp-action="Home" class="navbar-brand" style="color:antiquewhite;">National Parks</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav">
+                        <li><a asp-area="" asp-controller="Parks" asp-action="Home" class="navbar-brand" style="color:antiquewhite; font-size:1.3rem">Home</a></li>
+                        <li><a asp-area="" asp-controller="Parks" asp-action="Survey" class="navbar-brand" style="color:antiquewhite; font-size:1.3rem">Survey</a></li>
+                        <li><a asp-area="" asp-controller="Parks" asp-action="Favorites"  class="navbar-brand" style="color:antiquewhite; font-size:1.3rem">Favorites</a></li>
+                        <li><a asp-area="" asp-controller="User" asp-action="Login" class="navbar-brand" style="color:antiquewhite; font-size:1.3rem">Login</a></li>
+                        <li><a asp-area="" asp-controller="User" asp-action="Register" class="navbar-brand" style="color:antiquewhite; font-size:1.3rem">Register</a></li>
+                        <li><a asp-area="" asp-controller="User" asp-action="Logout" class="navbar-brand" style="color:antiquewhite; font-size:1.3rem">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - Capstone.Web</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

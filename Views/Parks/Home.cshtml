@@ -1,0 +1,25 @@
+﻿@model List<Park>
+
+@section StyleSheet {
+    <link href="~/css/Login.css" rel="stylesheet" />
+}
+
+@section Title {
+    Home
+}
+
+@foreach(var park in Model)
+{
+    string image = park.ParkCode + ".jpg";
+    <div class="container-fluid" style="padding: 1rem; background-color: rgb(184, 174, 159); margin: 1rem;">
+        <div class="row">
+            <div class="col-sm-3" style="align-items:center;">
+                <a asp-controller="Parks" asp-action="Detail" asp-route-code="@park.ParkCode"><img class="img-responsive" style="z-index: -1; max-height:35rem"src="~/images/@image" /></a>
+            </div>
+            <div class="col-sm-9">
+                <h2>@park.ParkName</h2>
+                <p style="padding: 2rem;">@park.Description</p>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,74 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poiret+One&display=swap');
+
+body {
+    
+    padding-bottom: 20px;
+    
+}
+
+h1 {
+    font-family: 'Poiret One', cursive;
+    font-weight:900;
+}
+
+h2 {
+    font-family: 'Poiret One', cursive;
+    font-weight: 900;
+}
+
+h3 {
+    font-family: 'Poiret One', cursive;
+    font-weight: 900;
+}
+
+h4 {
+    font-family: 'Poiret One', cursive;
+    font-weight: 900;
+}
+
+h5 {
+    font-family: 'Poiret One', cursive;
+    font-weight: 900;
+}
+
+p {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 5px;
+    padding-right: 5px;
+   
+}
+
+header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}

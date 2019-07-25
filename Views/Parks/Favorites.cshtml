@@ -1,0 +1,36 @@
+﻿@model List<Park>
+
+@section StyleSheet {
+    <link href="~/css/Login.css" rel="stylesheet" />
+}
+
+@section Title {
+    Favorites
+}
+
+@{
+    int totalVotes = 0;
+}
+
+@foreach (var park in Model)
+{
+    totalVotes += park.Votes;
+}
+
+    @foreach (var park in Model)
+    {
+        
+        string image = park.ParkCode + ".jpg";
+        <div class="container-fluid" style="padding: 1rem; background-color: rgb(184, 174, 159); margin: 1rem;">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a asp-controller="Parks" asp-action="Detail" asp-route-code="@park.ParkCode"><img class="img-responsive" style="z-index: -1; max-height:35rem" src="~/images/@image" /></a>
+                </div>
+                <div class="col-sm-9">
+                    <h2>@park.ParkName</h2>
+                    <h4>Votes: @park.Votes</h4>
+                    <h4>Percentage: @(((double)park.Votes/(double)totalVotes).ToString("p"))</h4>
+                </div>
+            </div>
+        </div>
+    }

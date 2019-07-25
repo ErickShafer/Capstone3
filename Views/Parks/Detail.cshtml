@@ -1,0 +1,143 @@
+﻿@model ParkWeatherViewModel
+
+@section StyleSheet {
+    <link href="~/css/Login.css" rel="stylesheet" />
+}
+
+@section Title {
+    Detail
+}
+
+@functions{
+    //Temp conversion
+    int celsius(int f)
+    {
+        int result = (int)((f - 32) * (5.0 / 9.0));
+        return result;
+    }
+}
+
+@{
+    string image = Model.Park.ParkCode + ".jpg";
+    Dictionary<string, string> weatherImages = new Dictionary<string, string>()
+    {
+    {"rain", "rain.png" },
+    {"partly cloudy", "partlyCloudy.png" },
+    {"thunderstorms", "thunderstorms.png" },
+    {"sunny", "sunny.png" },
+    {"snow", "snow.png" },
+    {"cloudy", "cloudy.png" }
+    };
+
+    
+}
+@section Script {
+    @*Script to change dispalyed temps*@
+    function valueChanged()
+    {
+    if($('.far').is(":checked"))
+    $(".Fahrenheit").show();
+    else
+    $(".Fahrenheit").hide();
+    if($('.cel').is(":checked"))
+    $(".Celsius").show();
+    else
+    $(".Celsius").hide();
+    }
+
+}
+
+<div class="container">
+    @*Park Detail View*@
+    <div class="container" style="background-color:rgb(184, 174, 159); margin:1rem">
+        <div class="row" style="padding: 3rem">
+            <div class="col-lg-4">
+                <img class="img-responsive" style="z-index: -1; max-height:50rem" src="~/images/@image" />
+            </div>
+            <div class="col-lg-8">
+                <h2>@Model.Park.ParkName</h2>
+                <h4>in @Model.Park.State</h4>
+                <p>@Model.Park.Description</p>
+                <p><i>"@Model.Park.InspirationalQuote"</i></p>
+                <p>-@Model.Park.InspirationalQuoteSource</p>
+                <div class="row">
+                    <div class="col-sm-4" style="padding-top: 5rem;">
+                        <ul>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Animal Species: @Model.Park.NumberOfAnimalSpecies.ToString("N0")</li>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Acreage: @Model.Park.Acreage.ToString("N0")<sup>2</sup></li>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Elevation: @Model.Park.Elevation.ToString("N0")</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4" style="padding-top: 5rem; ">
+                        <ul>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Miles of Trail: @Model.Park.MilesOfTrail.ToString("N0")</li>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Campsites: @Model.Park.NumberOfCampsites.ToString("N0")</li>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Climate: @Model.Park.Climate</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4" style="padding-top: 5rem;">
+                        <ul>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Year Founded: @Model.Park.YearFounded</li>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Annual Visitors: @Model.Park.AnnualVisitorCount.ToString("N0")</li>
+                            <li style="font-size:1.5rem; font-family: 'Poiret One', cursive; font-weight:600;">Entry Fee: @Model.Park.EntryFee.ToString("C")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    @*Today's Forecast*@
+    <div class="col-lg-4" style="text-align: center;">
+        <h3>Today</h3>
+        <img src="~/images/@weatherImages[Model.WeatherByPark[0].Forecast]" />
+        <p class="Fahrenheit"><span style="padding-right:15px">High @Model.WeatherByPark[0].High°F</span><span>Low @Model.WeatherByPark[0].Low°F</span></p>
+        <p class="Celsius" style="display: none;"><span style="padding-right:15px">High @celsius(Model.WeatherByPark[0].High)°C</span><span>Low @celsius(Model.WeatherByPark[0].Low)°C</span></p>
+        <p></p>
+
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-warning active">
+                <input class="far" type="radio" name="options" id="Fahrenheit" autocomplete="off" value="1" onchange="valueChanged(); " />Fahrenheit
+            </label>
+            <label class="btn btn-warning">
+                <input class="cel" type="radio" name="options" id="Celsius" autocomplete="off" value="2" onchange="valueChanged();" />Celsius
+            </label>
+
+        </div>
+        <br />
+
+    </div>
+
+    <div class="col-lg-8">
+        @*Rest of Five-Day Forecast*@
+        <div class="row">
+            @for (int i = 1; i < Model.WeatherByPark.Count; i++)
+            {
+                <div class="col-sm-3" style="text-align: center;">
+                    <h4>@DateTime.Now.AddDays(i).DayOfWeek.ToString()</h4>
+                    <img class="img-responsive" src="~/images/@weatherImages[Model.WeatherByPark[i].Forecast]" />
+
+                    <div class="Fahrenheit">
+                        <p>High @Model.WeatherByPark[i].High°F</p>
+                        <p>Low @Model.WeatherByPark[i].Low°F</p>
+                    </div>
+
+                    <div class="Celsius" style="display: none;">
+                        <p>High @celsius(Model.WeatherByPark[i].High)°C</p>
+                        <p>Low @celsius(Model.WeatherByPark[i].Low)°C</p>
+                    </div>
+
+                </div>
+            }
+        </div>
+        @*Recommendation Blurb*@
+        <div class="row" style="text-align:center; font-size:2rem; padding:3rem;">
+            @if (Model.Recommendation(Model.WeatherByPark[0]) != "")
+            {
+                <p style="font-family: 'Poiret One', cursive; font-weight:600;">Recommendation:</p>
+            }
+
+            <p style="font-family: 'Poiret One', cursive; font-weight:600;">@Model.Recommendation(Model.WeatherByPark[0])</p>
+        </div>
+    </div>
+</div>
